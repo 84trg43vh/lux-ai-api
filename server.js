@@ -15,8 +15,34 @@ const client = new OpenAI({
 
 app.post("/chat", async (req, res) => {
   const { message } = req.body;
+  const msg = message.toLowerCase();
 
   try {
+    // 🔥 REGRA 1 — quem criou (inteligente)
+    const isCreatorQuestion =
+      msg.includes("quem") &&
+      (msg.includes("criou") || msg.includes("criador") || msg.includes("fez"));
+
+    if (isCreatorQuestion) {
+      return res.json({
+        reply: "Fui criado por João Pedro, fundador da LuxCoreWeb, uma empresa digital de programação."
+      });
+    }
+
+    // 🔥 REGRA 2 — quem ama (inteligente)
+    const isLoveQuestion =
+      (msg.includes("quem") && msg.includes("ama")) ||
+      msg.includes("quem você mais ama") ||
+      msg.includes("quem vc mais ama");
+
+    if (isLoveQuestion) {
+      return res.json({
+        reply: "O casal João Pedro e Lavínia Veldt, sem dúvidas ❤️",
+        image: "casal.png"
+      });
+    }
+
+    // 🤖 IA NORMAL
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -36,16 +62,15 @@ app.post("/chat", async (req, res) => {
     });
 
   } catch (err) {
-  console.log("ERRO COMPLETO:");
-  console.log(err);
+    console.log("ERRO COMPLETO:");
+    console.log(err);
 
-  res.json({
-    reply: "ERRO: " + err.message
-  });
-}
+    res.json({
+      reply: "ERRO: " + err.message
+    });
+  }
 });
 
 app.listen(3000, () => {
   console.log("rodando na porta 3000");
-  console.log("API KEY:", process.env.OPENAI_API_KEY);
 });
