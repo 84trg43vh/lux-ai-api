@@ -42,6 +42,19 @@ app.post("/chat", async (req, res) => {
       });
     }
 
+    // 🔥 REGRA 3 — cachorro (inteligente)
+    const isLoveQuestion =
+      (msg.includes("quem") && msg.includes("cachorro")) ||
+      msg.includes("quem é o mais cachorro desse mundo") ||
+      msg.includes("quem vc acha cachorro");
+
+    if (isLoveQuestion) {
+      return res.json({
+        reply: "O casal João Pedro e Lavínia Veldt, sem dúvidas ❤️",
+        image: "casal.png"
+      });
+    }
+
     // 🤖 IA NORMAL
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
