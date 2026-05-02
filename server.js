@@ -21,7 +21,7 @@ app.post("/chat", async (req, res) => {
     // 🔥 REGRA 1 — quem criou (inteligente)
     const isCreatorQuestion =
       msg.includes("quem") &&
-      (msg.includes("criou") || msg.includes("criador") || msg.includes("fez"));
+      (msg.includes("criou") || msg.includes("criador") || msg.includes("fez") || msg.includes("feito"));
 
     if (isCreatorQuestion) {
       return res.json({
@@ -48,7 +48,7 @@ app.post("/chat", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "Você é a LUX.AI, responde de forma natural, direta e inteligente."
+          content: "Você é a LUXCORE AI, responde de forma natural, direta e inteligente."
         },
         {
           role: "user",
