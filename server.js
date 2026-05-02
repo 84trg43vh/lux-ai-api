@@ -48,6 +48,13 @@ app.post("/chat", async (req, res) => {
       msg.includes("quem é o mais cachorro desse mundo") ||
       msg.includes("quem vc acha cachorro");
 
+          if (isLoveQuestion) {
+      return res.json({
+        reply: "João Pedro é o mais cachorro dessa terra",
+      });
+    }
+
+
     if (isLoveQuestion) {
       return res.json({
         reply: "O casal João Pedro e Lavínia Veldt, sem dúvidas ❤️",
